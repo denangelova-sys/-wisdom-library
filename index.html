@@ -222,6 +222,17 @@ async function copyQuote(id){let q=quotes.find(x=>x.id===id);await navigator.cli
 async function shareQuote(id){let q=quotes.find(x=>x.id===id),text=`“${q.quote}” — ${q.author}`;if(navigator.share){await navigator.share({title:"Wisdom Library",text})}else{await navigator.clipboard?.writeText(text);alert("Text copied for sharing.")}}
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{page=b.dataset.page;filterTheme=null;filterAuthor=null;render()}));
 document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeDetail()});
-render();
+function render(){
+  document.querySelectorAll("[data-page]").forEach(b =>
+    b.classList.toggle("active", b.dataset.page === page)
+  );
+
+  if(page === "home") renderHome();
+  else if(page === "authors") renderAuthors();
+  else if(page === "themes") renderThemes();
+  else if(page === "search") renderSearch();
+  else if(page === "saved") renderSaved();
+}
+  render();
 </script>
 </body></html>
