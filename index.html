@@ -115,19 +115,18 @@ main{max-width:1180px;margin:auto;padding:30px 18px 90px}.hero{padding:44px 0 28
 .detailbg.watercard{background-size:cover!important;background-position:center!important}
 
 /* v12 — exact supplied watercolor artwork */
-.imagecard{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;position:relative;overflow:hidden;cursor:pointer}
+.imagecard{position:relative;overflow:hidden;cursor:pointer;background:#ddd8ce!important}.imagecard .artwork{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center;z-index:0}.imagecard .imagecard-shade{z-index:1}.imagecard .imagecard-caption{z-index:2}
 .imagecard-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,15,12,.02),rgba(15,15,12,.10));z-index:1;pointer-events:none}
 .imagecard-caption{position:absolute;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;z-index:2;color:rgba(255,255,255,.92);font:500 9px/1.4 "Manrope",sans-serif;letter-spacing:.09em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.28)}
-.imagecard-quote{position:absolute;left:10%;right:10%;top:50%;transform:translateY(-50%);z-index:3;text-align:center;font:500 clamp(22px,4vw,34px)/1.18 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;text-shadow:0 2px 14px rgba(0,0,0,.38);color:#fff;pointer-events:none}
-.imagecard-quote.dark{color:#211d18;text-shadow:0 1px 10px rgba(255,255,255,.65)}
-.imagecard-quote.light{color:#f8f1e6;text-shadow:0 2px 14px rgba(0,0,0,.45)}
-.imagecard-caption{z-index:4}
-.today .imagecard-quote{font-size:clamp(27px,5vw,42px);max-width:620px;left:8%;right:8%;margin:auto}
-.detailbg.imagecard{min-height:330px;background-size:cover!important;background-position:center!important}
-.detailbg.imagecard .imagecard-quote{font-size:clamp(28px,5vw,44px)}
-
 .today.imagecard .imagecard-caption{left:25px;right:25px;bottom:24px}
 @media(max-width:800px){.imagecard-caption{left:18px;right:18px;bottom:17px}.today.imagecard .imagecard-caption{left:20px;right:20px;bottom:20px}}
+
+.imagecard-quote{position:absolute;left:9%;right:9%;top:50%;transform:translateY(-50%);z-index:3;text-align:center;font:500 clamp(23px,4.4vw,35px)/1.18 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;color:#211d18;text-shadow:0 1px 8px rgba(255,255,255,.45);pointer-events:none;padding:24px 18px;border-radius:14px;background:rgba(250,246,237,.82);box-shadow:0 8px 30px rgba(35,28,20,.08);backdrop-filter:blur(1px)}
+.imagecard-quote.dark{color:#f8f1e6;text-shadow:0 2px 10px rgba(0,0,0,.55);background:rgba(25,31,33,.66)}
+.imagecard-quote.light{color:#211d18}
+.imagecard .artwork,.imagecard .imagecard-shade,.imagecard .imagecard-quote,.imagecard .imagecard-caption{pointer-events:none}
+.today.imagecard .imagecard-quote{font-size:clamp(25px,4.8vw,38px);left:7%;right:7%;top:52%}
+@media(max-width:800px){.imagecard-quote{font-size:25px;line-height:1.2;padding:20px 14px;left:8%;right:8%}.today.imagecard .imagecard-quote{font-size:27px}}
 </style>
 </head>
 <body>
@@ -161,17 +160,16 @@ function waterStyle(i){return `background-image:url("${watercolorUrls[i%watercol
 function card(q){
   let label=q.kind==="rendering"?"English rendering · source cited":"Editorial paraphrase";
   let i=(q.id-1)%watercolorUrls.length;
-  let tone=(i===1||i===3)?"dark":"light";
-  return `<article class="card watercard imagecard" data-quote-id="${q.id}" style="${waterStyle(i)}" role="button" tabindex="0" aria-label="${esc(q.author)} — ${esc(q.quote)}"><div class="imagecard-shade"></div><div class="imagecard-quote ${tone}">“${esc(q.quote)}”</div><div class="imagecard-caption"><span>${esc(q.author)}</span><span>${esc(q.theme)} · ${label}</span></div></article>`;
+  let tone=(i===0||i===2)?"dark":"light";
+  return `<article class="card imagecard" onclick="openDetail(${q.id})" role="button" tabindex="0" aria-label="${esc(q.author)} — ${esc(q.quote)}"><img class="artwork" src="${watercolorUrls[i]}" alt="Watercolor artwork"><div class="imagecard-shade"></div><div class="imagecard-quote ${tone}">“${esc(q.quote)}”</div><div class="imagecard-caption"><span>${esc(q.author)}</span><span>${esc(q.theme)} · ${label}</span></div></article>`;
 }
 function renderHome(){
  let dayNumber=Math.floor(Date.now()/86400000); let featured=quotes[dayNumber%quotes.length];
- let featuredIndex=dayNumber%watercolorUrls.length;
- let featuredTone=(featuredIndex===1||featuredIndex===3)?"dark":"light";
- main.innerHTML=`<section class="hero"><div><div class="eyebrow">WISDOM LIBRARY</div><h1>Thoughts that stay.</h1><p>A quiet collection of philosophy, wisdom, and reflection — gathered to be read slowly.</p></div><div class="today watercard imagecard" data-quote-id="${featured.id}" style="${waterStyle(featuredIndex)}" role="button" tabindex="0"><div class="imagecard-shade"></div><div class="imagecard-quote ${featuredTone}">“${esc(featured.quote)}”</div><div class="imagecard-caption"><span>THOUGHT FOR TODAY</span><span>${esc(featured.author)} · ${esc(featured.source)}</span></div></div></section>
-<section class="section"><div class="sectionhead"><h2>From the library</h2><span class="small">${quotes.length} thoughts</span></div><div class="grid">${quotes.slice(0,6).map(card).join("")}</div></section>
-<section class="section"><div class="sectionhead"><h2>Explore by theme</h2><span class="small">Browse the collection</span></div><div class="authorgrid">${themes.slice(0,8).map(t=>`<div class="themecard" onclick="goTheme('${t}')"><strong>${t}</strong><span class="small">${quotes.filter(q=>q.theme===t).length} thoughts</span></div>`).join("")}</div></section>
-<div class="footer">WISDOM LIBRARY · curated collection<br>Sources and editorial rendering notes are shown with each thought.</div>`;
+ let featuredIndex=dayNumber%watercolorUrls.length; let featuredTone=(featuredIndex===0||featuredIndex===2)?"dark":"light";
+ main.innerHTML=`<section class="hero"><div><div class="eyebrow">WISDOM LIBRARY</div><h1>Thoughts that stay.</h1><p>A quiet collection of philosophy, wisdom, and reflection — gathered to be read slowly.</p></div><div class="today imagecard" onclick="openDetail(${featured.id})" role="button"><img class="artwork" src="${watercolorUrls[featuredIndex]}" alt="Watercolor artwork"><div class="imagecard-shade"></div><div class="imagecard-quote ${featuredTone}">“${esc(featured.quote)}”</div><div class="imagecard-caption"><span>THOUGHT FOR TODAY</span><span>${esc(featured.author)} · ${esc(featured.source)}</span></div></div></section>`
+ <section class="section"><div class="sectionhead"><h2>From the library</h2><span class="small">${quotes.length} thoughts</span></div><div class="grid">${quotes.slice(0,6).map(card).join("")}</div></section>
+ <section class="section"><div class="sectionhead"><h2>Explore by theme</h2><span class="small">Browse the collection</span></div><div class="authorgrid">${themes.slice(0,8).map(t=>`<div class="themecard" onclick="goTheme('${t}')"><strong>${t}</strong><span class="small">${quotes.filter(q=>q.theme===t).length} thoughts</span></div>`).join("")}</div></section>
+ <div class="footer">WISDOM LIBRARY · curated collection<br>Sources and editorial rendering notes are shown with each thought.</div>`;
 }
 function renderAuthors(){
  main.innerHTML=`<div class="section"><div class="eyebrow">Collection</div><h1 class="collection-title" style="font:500 52px/1 "Cormorant Garamond",Georgia,serif;margin:10px 0 10px;letter-spacing:-.015em">Authors</h1><p class="section-intro">A small circle of voices whose ideas have shaped the library.</p><div class="authorgrid">${authors.map(a=>`<div class="authorcard" onclick="goAuthor('${a}')"><strong>${a}</strong><span class="small">${quotes.filter(q=>q.author===a).length} thoughts</span></div>`).join("")}</div></div>`;
@@ -216,8 +214,8 @@ function authorBio(a){
 function themeClass(t){return ({'Love':'love','Life':'life','Wisdom':'wisdom','Suffering':'suffering','Courage':'courage','Freedom':'freedom','Happiness':'happiness','Time':'time','Solitude':'lonely','Self':'self','Knowledge':'knowledge','Change':'change','Spirituality':'spirituality'})[t]||'wisdom'}
 function openDetail(id){
  let q=quotes.find(x=>x.id===id), isSaved=saved.includes(id);
- let detailIndex=(q.id*7)%watercolorUrls.length; let detailTone=(detailIndex===1||detailIndex===3)?"dark":"light";
- document.getElementById("detail").innerHTML=`<div class="eyebrow">${esc(q.theme)}</div><div class="detailbg watercard imagecard" style="${waterStyle(detailIndex)}"><div class="imagecard-shade"></div><div class="imagecard-quote ${detailTone}">“${esc(q.quote)}”</div><div class="imagecard-caption"><span>${esc(q.author)}</span><span>${esc(q.source)}</span></div></div><p><strong>Source:</strong> ${esc(q.source)}</p><p class="small">${esc(q.note)}</p><p class="small"><strong>${q.kind==="rendering"?"English rendering · source cited":"Editorial paraphrase · not a direct quotation"}</strong></p><div class="actions"><button class="action primary" onclick="toggleSaved(${q.id})">${isSaved?"♥ Saved":"♡ Save"}</button><button class="action" onclick="shareQuote(${q.id})">Share</button><button class="action" onclick="showShareCard(${q.id})">Card</button><button class="action" onclick="copyQuote(${q.id})">Copy</button></div>`;
+ let detailIndex=(q.id*7)%watercolorUrls.length; let detailTone=(detailIndex===0||detailIndex===2)?"dark":"light";
+ document.getElementById("detail").innerHTML=`<div class="eyebrow">${esc(q.theme)}</div><div class="detailbg imagecard"><img class="artwork" src="${watercolorUrls[detailIndex]}" alt="Watercolor artwork"><div class="imagecard-shade"></div><div class="imagecard-quote ${detailTone}">“${esc(q.quote)}”</div><div class="imagecard-caption"><span>${esc(q.author)}</span><span>${esc(q.source)}</span></div></div><p><strong>Source:</strong> ${esc(q.source)}</p><p class="small">${esc(q.note)}</p><p class="small"><strong>${q.kind==="rendering"?"English rendering · source cited":"Editorial paraphrase · not a direct quotation"}</strong></p><div class="actions"><button class="action primary" onclick="toggleSaved(${q.id})">${isSaved?"♥ Saved":"♡ Save"}</button><button class="action" onclick="shareQuote(${q.id})">Share</button><button class="action" onclick="showShareCard(${q.id})">Card</button><button class="action" onclick="copyQuote(${q.id})">Copy</button></div>`;
  document.getElementById("overlay").classList.add("show");
 }
 function closeDetail(){document.getElementById("overlay").classList.remove("show")}
@@ -230,9 +228,8 @@ function showShareCard(id){
 function toggleSaved(id){saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];localStorage.setItem("wisdomSaved",JSON.stringify(saved));openDetail(id)}
 async function copyQuote(id){let q=quotes.find(x=>x.id===id);await navigator.clipboard?.writeText(`“${q.quote}” — ${q.author}`);alert("Copied.");}
 async function shareQuote(id){let q=quotes.find(x=>x.id===id),text=`“${q.quote}” — ${q.author}`;if(navigator.share){await navigator.share({title:"Wisdom Library",text})}else{await navigator.clipboard?.writeText(text);alert("Text copied for sharing.")}}
-main.addEventListener("click",e=>{const c=e.target.closest("[data-quote-id]");if(c){openDetail(Number(c.dataset.quoteId));}});
-main.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.closest("[data-quote-id]")){e.preventDefault();openDetail(Number(e.target.closest("[data-quote-id]").dataset.quoteId));}});
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{page=b.dataset.page;filterTheme=null;filterAuthor=null;render()}));
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".imagecard[role=\"button\"]")){e.preventDefault();e.target.click()}});
 document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeDetail()});
 function render(){
   document.querySelectorAll("[data-page]").forEach(b =>
