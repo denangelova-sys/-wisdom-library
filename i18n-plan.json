@@ -1,0 +1,15 @@
+{
+  "currentDefaultLanguage": "en",
+  "publishedLanguages": [
+    "en",
+    "bg"
+  ],
+  "plannedLanguages": [
+    "de",
+    "es",
+    "fr"
+  ],
+  "rule": "Create a real localized URL and translated content before adding hreflang for that language.",
+  "hreflang": "Each published version must reference itself and every other published version; use absolute URLs.",
+  "quotePages": "English quote pages exist for all 190 entries; Bulgarian quote pages currently exist only for explicitly translated core entries."
+}
