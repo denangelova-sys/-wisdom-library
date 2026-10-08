@@ -595,6 +595,110 @@ body:before{
   .today.imagecard .imagecard-author{font-size:13px!important}
 }
 
+/* v12 — handmade paper editorial identity */
+:root{
+  --bg:#f1ece2;
+  --paper:#fbf8f1;
+  --paper-deep:#eee7db;
+  --ink:#2b2723;
+  --muted:#74695f;
+  --line:#d4c8b9;
+  --accent:#8b634b;
+}
+
+/* Remove the previous decorative/noise layer completely. */
+body:before{
+  display:none!important;
+}
+
+/* New material surface: warm ivory paper with visible but restrained
+   cellulose grain, tiny fibers and natural tonal variation. */
+body{
+  background-color:var(--bg)!important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='4' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 .18'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='.55'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(92deg,rgba(92,72,54,.018) 0 1px,transparent 1px 7px),
+    repeating-linear-gradient(4deg,rgba(255,255,255,.17) 0 1px,transparent 1px 11px),
+    radial-gradient(circle at 14% 18%,rgba(126,99,74,.055) 0 1px,transparent 1.4px),
+    radial-gradient(circle at 77% 64%,rgba(126,99,74,.045) 0 1px,transparent 1.5px),
+    linear-gradient(135deg,#f5f0e7 0%,#eee8dd 48%,#f3eee5 100%)!important;
+  background-size:360px 360px,7px 7px,11px 11px,9px 9px,13px 13px,auto!important;
+  background-attachment:fixed!important;
+}
+
+/* Quiet paper-white header rather than a separate colored panel. */
+.top{
+  background:rgba(249,246,239,.88)!important;
+  border-bottom:1px solid rgba(115,95,75,.16)!important;
+  box-shadow:0 5px 22px rgba(65,48,32,.035)!important;
+}
+
+.navlinks button.active,.navlinks button:hover{
+  background:#e8dfd3!important;
+}
+
+/* Literary typography: serif for editorial content, clean sans for UI. */
+.brand,.hero h1,.hero p,.section h2,.collection-title,.section-intro,
+.authorcard strong,.themecard strong,.imagecard-quote,.imagecard-author,
+.detailbg .quote,.sharecard .bigquote,.authorhero h1{
+  font-family:"Cormorant Garamond",Georgia,serif!important;
+}
+
+.hero h1{
+  font-weight:500!important;
+  letter-spacing:-.018em!important;
+}
+
+.hero p,.section-intro{
+  color:#655b53!important;
+}
+
+.imagecard-quote{
+  color:var(--ink)!important;
+  font-weight:500!important;
+  letter-spacing:-.006em!important;
+  line-height:1.13!important;
+}
+
+.imagecard-author{
+  color:#624d40!important;
+  opacity:1!important;
+  font-size:15px!important;
+  line-height:1.05!important;
+  letter-spacing:.13em!important;
+  font-weight:600!important;
+  text-transform:uppercase!important;
+}
+
+.today.imagecard .imagecard-author{
+  font-size:16px!important;
+}
+
+/* More tactile cards: paper-on-paper separation, not a glossy UI shadow. */
+.card{
+  box-shadow:0 18px 48px rgba(57,43,28,.115)!important;
+}
+
+.authorcard,.themecard{
+  background:rgba(251,248,241,.90)!important;
+  border:1px solid rgba(120,105,88,.22)!important;
+  box-shadow:0 10px 30px rgba(57,43,28,.055)!important;
+}
+
+.authorcard strong,.themecard strong{
+  color:#302923!important;
+}
+
+@media(max-width:800px){
+  .imagecard-author{
+    font-size:12px!important;
+    letter-spacing:.09em!important;
+  }
+  .today.imagecard .imagecard-author{
+    font-size:13px!important;
+  }
+}
+
 </style>
 <link rel="alternate" hreflang="en" href="https://denangelova-sys.github.io/-wisdom-library/" /><link rel="alternate" hreflang="bg" href="https://denangelova-sys.github.io/-wisdom-library/bg/" /><link rel="alternate" hreflang="x-default" href="https://denangelova-sys.github.io/-wisdom-library/" /><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Wisdom Library","item":"https://denangelova-sys.github.io/-wisdom-library/"}]}</script></head>
 <body>
