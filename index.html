@@ -532,6 +532,69 @@ main{padding-bottom:48px!important;}
 @media(max-width:800px){.imagecard-author{font-size:9px!important;letter-spacing:.14em!important;bottom:6%!important}.imagecard-quote{left:9%!important;right:9%!important;top:11%!important;bottom:17%!important;max-height:68%!important}.imagecard .artwork{opacity:.72!important;}}
 
 .source-status{margin:18px 0;padding:14px 16px;border:1px solid rgba(60,70,80,.16);border-radius:14px;background:rgba(255,255,255,.55);font-size:.92rem;line-height:1.55}.source-status strong{letter-spacing:.04em;text-transform:uppercase;font-size:.72rem}
+/* v11 — refined paper editorial identity */
+:root{
+  --bg:#eee9df;
+  --paper:#fbf8f1;
+  --ink:#28231e;
+  --muted:#746b61;
+  --line:#d5cabc;
+  --accent:#8e6548;
+}
+
+body{
+  background:
+    linear-gradient(rgba(250,246,238,.58),rgba(250,246,238,.58)),
+    radial-gradient(circle at 18% 22%,rgba(130,104,78,.055) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 72% 68%,rgba(130,104,78,.045) 0 1px,transparent 1.6px),
+    var(--bg);
+  background-size:auto,7px 7px,11px 11px,auto;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+
+.top{background:rgba(247,243,235,.9)}
+.navlinks button.active,.navlinks button:hover{background:#e7ddcf}
+
+.brand,.hero h1,.hero p,.section h2,.collection-title,.section-intro,
+.authorcard strong,.themecard strong,.imagecard-quote,.imagecard-author,
+.detailbg .quote,.sharecard .bigquote,.authorhero h1{
+  font-family:"Cormorant Garamond",Georgia,serif!important;
+}
+
+.imagecard-author{
+  font-size:14px!important;
+  line-height:1.1!important;
+  letter-spacing:.08em!important;
+  font-weight:600!important;
+  text-transform:uppercase;
+}
+
+.today.imagecard .imagecard-author{font-size:15px!important}
+
+.card{box-shadow:0 15px 40px rgba(57,43,28,.10)}
+.authorcard,.themecard{
+  background:rgba(251,248,241,.82);
+  border-color:rgba(120,105,88,.20);
+}
+
+@media(max-width:800px){
+  .imagecard-author{
+    font-size:12px!important;
+    letter-spacing:.07em!important;
+  }
+  .today.imagecard .imagecard-author{font-size:13px!important}
+}
+
 </style>
 <link rel="alternate" hreflang="en" href="https://denangelova-sys.github.io/-wisdom-library/" /><link rel="alternate" hreflang="bg" href="https://denangelova-sys.github.io/-wisdom-library/bg/" /><link rel="alternate" hreflang="x-default" href="https://denangelova-sys.github.io/-wisdom-library/" /><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Wisdom Library","item":"https://denangelova-sys.github.io/-wisdom-library/"}]}</script></head>
 <body>
